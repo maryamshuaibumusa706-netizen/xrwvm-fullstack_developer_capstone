@@ -58,17 +58,40 @@ app.get('/fetchReviews/dealer/:id', async (req, res) => {
 
 // Express route to fetch all dealerships
 app.get('/fetchDealers', async (req, res) => {
-//Write your code here
-});
+try {
+    const data = await Dealership.find();
+    res.json(data);
+  } catch (err) {
+    res.status(500).json({error: err.message});
+  }});
 
 // Express route to fetch Dealers by a particular state
 app.get('/fetchDealers/:state', async (req, res) => {
-//Write your code here
+  try {
+    const data = await Dealership.find({state: req.params.state});
+    res.json(data);
+  } catch (err) {
+    res.status(500).json({error: err.message});
+  }
 });
 
 // Express route to fetch dealer by a particular id
 app.get('/fetchDealer/:id', async (req, res) => {
-//Write your code here
+ try {
+    const data = await Dealership.find({id: parseInt(req.params.id)});
+    res.json(data);
+  } catch (err) {
+    res.status(500).json({error: err.message});
+  }
+});
+
+app.get('/fetchReviews/dealer/:id', async (req, res) => {
+  try {
+    const data = await Review.find({dealership: parseInt(req.params.id)});
+    res.json(data);
+  } catch (err) {
+    res.status(500).json({error: err.message});
+  }
 });
 
 //Express route to insert review
